@@ -13,7 +13,8 @@ LOCAL_STATIC_LIBRARIES := \
     libsystemproperties \
     libphmap \
     liblsplt \
-    libmagisk-rs
+    libmagisk-rs \
+    libxdl
 
 LOCAL_SRC_FILES := \
     core/applets.cpp \

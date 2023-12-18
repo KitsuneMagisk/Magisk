@@ -506,7 +506,7 @@ static void collect_modules(bool open_zygisk) {
             if (fd < 0)
                 return -1;
             if (use_memfd) {
-                int memfd = syscall(__NR_memfd_create, "jit-cache", MFD_CLOEXEC);
+                int memfd = syscall(__NR_memfd_create, "jit-zygisk-cache", MFD_CLOEXEC);
                 if (memfd >= 0) {
                     xsendfile(memfd, fd, nullptr, INT_MAX);
                     close(fd);

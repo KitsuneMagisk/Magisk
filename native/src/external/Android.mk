@@ -394,6 +394,19 @@ LOCAL_SRC_FILES := \
     zopfli/src/zopfli/zopfli_lib.c
 include $(BUILD_STATIC_LIBRARY)
 
+# libxdl.a
+include $(CLEAR_VARS)
+LOCAL_MODULE := libxdl
+LOCAL_C_INCLUDES := $(LOCAL_PATH)/_xDL/xdl/src/main/cpp/include
+LOCAL_EXPORT_C_INCLUDES := $(LOCAL_C_INCLUDES)
+LOCAL_SRC_FILES := \
+    _xDL/xdl/src/main/cpp/xdl.c \
+    _xDL/xdl/src/main/cpp/xdl_iterate.c \
+    _xDL/xdl/src/main/cpp/xdl_linker.c \
+    _xDL/xdl/src/main/cpp/xdl_lzma.c \
+    _xDL/xdl/src/main/cpp/xdl_util.c
+include $(BUILD_STATIC_LIBRARY)
+
 CWD := $(LOCAL_PATH)
 include $(CWD)/system_properties/Android.mk
 include $(CWD)/libcxx/Android.mk
