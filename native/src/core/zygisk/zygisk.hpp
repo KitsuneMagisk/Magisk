@@ -12,6 +12,7 @@ enum : int {
     CONNECT_COMPANION,
     GET_MODDIR,
     SULIST_ROOT_NS,
+    REVERT_UNMOUNT,
     END
 };
 }
@@ -35,6 +36,7 @@ extern int system_server_fd;
 void hook_functions();
 int remote_get_info(int uid, const char *process, uint32_t *flags, std::vector<int> &fds);
 int remote_request_sulist();
+int remote_request_umount();
 
 inline int zygisk_request(int req) {
     int fd = connect_daemon(+RequestCode::ZYGISK);

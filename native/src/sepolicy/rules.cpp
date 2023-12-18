@@ -118,6 +118,15 @@ void sepolicy::magisk_rules() {
     allow("zygote", "fs_type", "filesystem", "unmount");
     allow("system_server", "system_server", "process", "execmem");
 
+    // for setns
+    allow("zygote", "unlabeled", "file", "read");
+    allow("zygote", "unlabeled", "file", "open");
+    allow("zygote", "unlabeled", "file", "getattr");
+    allow("zygote", SEPOL_PROC_DOMAIN, "file", "read");
+    allow("zygote", SEPOL_PROC_DOMAIN, "lnk_file", "read");
+    allow("zygote", SEPOL_PROC_DOMAIN, "dir", "search");
+    allow("zygote", "zygote", "capability", "sys_chroot");
+
     // Shut llkd up
     dontaudit("llkd", SEPOL_PROC_DOMAIN, "process", "ptrace");
 
