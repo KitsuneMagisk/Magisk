@@ -329,6 +329,11 @@ bool MagiskD::post_fs_data() const {
 
     LOGI("** post-fs-data mode running\n");
 
+    if (access("/apex", F_OK) == 0) {
+        mount(nullptr, "/apex", nullptr, MS_PRIVATE | MS_REC, nullptr);
+        mount(nullptr, "/apex", nullptr, MS_SHARED | MS_REC, nullptr);
+    }
+
     unlock_blocks();
     LOGI("* Mounting mirrors\n");
     mount_mirrors();
