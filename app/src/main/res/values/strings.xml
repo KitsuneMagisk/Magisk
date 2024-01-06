@@ -257,5 +257,6 @@
     <string name="settings_sulist_config_summary">Select the processes to be included on the sulist</string>
     <string name="settings_sulist_enforced">SuList is enforced</string>
     <string name="settings_sulist_error_magiskhide">This feature need MagiskHide to be enabled</string>
+    <string name="home_notice_unofficial_magisk">WARNING! You are using an unofficial version of Magisk that is not officially supported by the Magisk author. This version may contain unstable modifications that could harm your device or compromise your security. Do not report any issues or request any help from official Magisk channels. If you use this version but do not know this is an unofficial version, please switch to the official Magisk at github.com/topjohnwu/Magisk</string>
 
 </resources>

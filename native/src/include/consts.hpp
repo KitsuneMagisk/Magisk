@@ -1,6 +1,6 @@
 #pragma once
 
-#define JAVA_PACKAGE_NAME "com.topjohnwu.magisk"
+#define JAVA_PACKAGE_NAME "io.github.huskydg.magisk"
 // magiskinit will hex patch this constant,
 // appending \0 to prevent the compiler from reusing the string for "1"
 #define RANDOM_SOCKET_NAME  "d30138f2310a9fb9c54a3e0c21f58591\0"
