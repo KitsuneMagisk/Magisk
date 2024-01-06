@@ -326,6 +326,11 @@ void MagiskInit::setup_tmp(const char *path) {
     LOGD("Setup Magisk tmp at %s\n", path);
     chdir("/data");
 
+    if (auto env_path = split(getenv("PATH")?: "", ":"); path == "/sbin"s && 
+        std::find(env_path.begin(), env_path.end(), "/sbin") == env_path.end()) {
+        setenv("PATH", ("/sbin:"s + (getenv("PATH")?: "")).data(), 1);
+    }
+
     xmkdir(INTLROOT, 0711);
     xmkdir(MIRRDIR, 0);
     xmkdir(BLOCKDIR, 0);
