@@ -602,6 +602,41 @@ void HookContext::run_modules_post() {
             mremap(copy, size, size, MREMAP_MAYMOVE | MREMAP_FIXED, addr);
             mprotect(addr, size, info.perms);
         }
+
+        // Don't know if there's a header for things like this
+        // so I just put it into a lambda
+        auto generateRandomString = [](char *str, int length) {
+            const char charset[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            srand(time(NULL));
+
+            for (int i = 0; i < length; i++) {
+                int key = rand() % (sizeof(charset) - 1);
+                str[i] = charset[key];
+            }
+
+            str[length] = '\0';
+        };
+
+        // Randomize name of anonymous mappings
+        // We don't run this in the previous loop because LSPosed might also add
+        // mappings that are not related to /memfd:jit-zygisk-cache
+        for (auto info : lsplt::MapInfo::Scan()) {
+            // I had some problems with info.perms & PROT_EXEC so I had to change lsplt source a bit.
+            // If that problem occurs here, do strchr(info.perms_str.c_str(), 'x') instead and add perms_str
+            // to the lsplt MapInfo struct and set it to the raw perms string in Scan();
+            if (info.perms & PROT_EXEC && info.path.empty()) {
+                // Generate Random Name
+                char randomString[11];
+                generateRandomString(randomString, 10);
+                //LOGI("Randomized Memory map name: %s", randomString);
+
+                // Memory address of random string
+                uintptr_t strAddr = (uintptr_t)&randomString;
+
+                // https://lore.kernel.org/lkml/1383170047-21074-2-git-send-email-ccross@android.com/
+                prctl(PR_SET_VMA, PR_SET_VMA_ANON_NAME, info.start, info.end - info.start, strAddr);
+            }
+        }
     }
 }
 
