@@ -1,4 +1,4 @@
-name: Magisk Build
+name: Magisk Builder
 
 on:
   push:
